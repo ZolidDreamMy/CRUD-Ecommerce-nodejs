@@ -6,19 +6,19 @@ const Carts = require('../models/cart');
 const ObjectId = mongodb.ObjectId;
 
 
-
+// ทำการ render ไปที่หน้าหลัก
 exports.index = (req, res, next) => {
     res.render('products/', {
         pageTitle: '',
     });
 }
-
+// ทำการ render ไปที่หน้า products
 exports.products = (req, res, next) => {
     res.render('products/products', {
         pageTitle: 'Products',
     });
 }
-
+// ทำการ render ไปที่หน้า cart
 exports.showCart = (req, res, next) => {
     Carts.fetchAll()
         .then(products => { 
@@ -33,17 +33,13 @@ exports.showCart = (req, res, next) => {
         });
 }
 
-// exports.shopDetail = (req, res, next) => {
-//     res.render('products/shop_detail', {
-//         pageTitle: 'Shopdetail',
-//     });
-// }
+// ทำการ render ไปที่หน้า insert ข้อมูล
 exports.insert = (req, res, next) => {
     res.render('products/insert', {
         pageTitle: '',
     });
 }
-
+// ทำการส่งข้อมูลไปยังหน้า stock เพื่อทำการแสดง
 exports.stockproducts = (req, res, next) => {
     Product.fetchAll()
         .then(products => { 
@@ -57,7 +53,7 @@ exports.stockproducts = (req, res, next) => {
         });
 }
 
-
+// ทำการส่งข้อมูลไปยังหน้า products เพื่อทำการแสดง
 exports.getSearchProduct = (req, res, next) => {
 
     Product.fetchAll()
@@ -72,7 +68,7 @@ exports.getSearchProduct = (req, res, next) => {
             console.log(err);
         });
 }
-
+// ทำการรับค่าตามตัวแปรที่กำหนด และทำการนำไปแสดงในหน้า shop_detail
 exports.detailProduct = (req, res, next) => {
     console.log(req.params);
     const { product_id } = req.params;
@@ -120,22 +116,7 @@ exports.selectCategory = (req, res, next) => {
             console.log(err);
         });
 };
-
-
-// exports.getSearchProduct = (req, res, next) => {
-
-//     Product.fetchAll()
-//         .then(products => {
-//             res.render('products/shop', {
-//                 pageTitle: 'Search Product',
-//                 prods: products,
-//             });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// }
-
+// ทำการส่งแบบ post เพื่อที่จะทำการ insert ข้อมูลในหน้า AddtoCart
 exports.postAddtocart = (req, res, next) => {
     console.log(req.body);
     const { product_name,price,amount,img_path} = req.body;
@@ -152,7 +133,7 @@ exports.postAddtocart = (req, res, next) => {
         });
 
 };
-
+// ทำการส่งแบบ get เพื่อที่จะทำการ insert ข้อมูลในหน้า AddtoCart
 exports.getAddProduct = (req, res, next) => {
     const product_name = '';
     const price = '';
@@ -203,6 +184,7 @@ exports.postAddProduct = (req, res, next) => {
 
 };
 
+// ทำการส่งแบบ get เพื่อที่จะทำการ update ข้อมูลในหน้า products
 exports.getUpdateProduct = (req, res, next) => {
     console.log(req.params);
     const { product_id } = req.params;
@@ -239,6 +221,7 @@ exports.getUpdateProduct = (req, res, next) => {
         .catch(err => console.log(err));
 };
 
+// ทำการส่งแบบ post เพื่อที่จะทำการ update ข้อมูลในหน้า products
 exports.postUpdateProduct = (req, res, next) => {
     console.log(req.body);
     const { product_id,product_name,price,amount,img_path,category_name,description } = req.body;
@@ -267,6 +250,7 @@ exports.postUpdateProduct = (req, res, next) => {
         .catch(err => console.log(err));
 };
 
+// ทำการ Delete ตาม product_id ที่ระบุ
 exports.getDeleteProduct = (req, res, next) => {
     const { product_id } = req.params;
     console.log(product_id);
@@ -278,6 +262,7 @@ exports.getDeleteProduct = (req, res, next) => {
         .catch(err => console.log(err));
 };
 
+// ทำการ Delete หน้า order ตาม product_id ที่ระบุ
 exports.getDeleteOrder = (req, res, next) => {
     const { product_id } = req.params;
     console.log(product_id);
